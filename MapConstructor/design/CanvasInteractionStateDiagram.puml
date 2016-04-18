@@ -1,0 +1,32 @@
+@startuml
+scale 350 width
+
+state Creating {
+    state RectangleCreation {
+        state RightBottomPointDetermined : \ rectangle created
+        [*] --> LeftTopPointDetermined : mouseClicked
+        LeftTopPointDetermined --> RightBottomPointDetermined : mouseClicked
+        RightBottomPointDetermined --> [*]
+    }
+    state CircleCreation {
+        state RadiusSet : \ circle created
+        [*] --> CircleCenterDetermined : mouseClicked
+        CircleCenterDetermined --> RadiusSet : mouseClicked
+        RadiusSet --> [*]
+    }
+
+    [*] --> RectangleCreation : figure == RECTANGLE
+    [*] --> CircleCreation : figure == CIRCLE
+
+    RectangleCreation --> [*]
+    CircleCreation --> [*]
+}
+
+state Editing
+
+
+[*] --> Creating
+Creating --> Editing : mode == EDITING
+Editing --> Creating : mode == CONSTRUCTION
+
+@enduml
